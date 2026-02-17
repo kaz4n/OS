@@ -1,13 +1,18 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int main()
 {
+    int status;
     printf("Main Process PID =%d PPID=%d\n", getpid(), getppid());
     int pid = fork();
     if (pid < 0)
     {
         perror("Error forking a child");
-        int exitCode = exit(0);
+        exit(0);
     }
     else if (pid = 0)
     {
@@ -16,12 +21,17 @@ int main()
     else
     {
         wait(NULL);
-        printf("Child Process PID =%d PPID=%d\n", exitCode);
         printf("Parent Process PID=%d, child PID=%d, PPID=%d\n", getpid(), pid, getppid());
-        if (exitCode == 0)
-            printf("Child succeeded!\n");
-        else
-            printf("Child Failed (status=%d)\n", exitCode);
-    }
+        if(WIFEXITED(status)){
+            int exitCode = WEXITSTATUS(status);
+        printf("Child exit code=%d\n", exitCode);
+            if (exitCode == 0)
+                printf("Child succeeded!\n");
+            else
+                printf("Child Failed (status=%d)\n", exitCode);
+        } else {
+            printf("Child did not terminate normally\n");
+        }
     return 1;
+}
 }
