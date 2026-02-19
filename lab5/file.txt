@@ -1,0 +1,2 @@
+want to count the word word
+how many times did word appear?!
