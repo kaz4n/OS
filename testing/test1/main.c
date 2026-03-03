@@ -1,26 +1,50 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
-typedef struct people {
+#define SIZE_ARRAY 8
 
-    char *str;
-} People;
-int main(int argc, char* [] argv){
+
+
+int main() {
+
+
+    if (fork() && fork() )
+    {
+        fork();
+    }
     
-    // char* str = "Hello";
-    // char str1[12] = {'s', '2'};
-    // char charect = '2';
-    // printf("%s , %c ", str , charect);
+    int pid = fork();
+    if (pid == 0 )
+    {
+        int pid2 = fork();
+        if(pid2 == 0){
+            execvp("ls",args);
+        }
+        else if (pid2> 0)
+        {
+            WAIT(NULL);
+        }
+    
+    WAIT(NULL);
+    printf("Something");
+    }
+    
+    // for (size_t i = 0; i < 2; i++)
+    // {
+    //     fork();
+    // }
 
-    // struct people pp;
-    // pp.str =  "Hello";
-    // printf("%s  ", pp.str);
+    //  if (fork() == 0  )
+    // {
+    //     fork();
+    // }
+    // int buffer[8] = {0,1,2,3,4,5,6,7};
+    // for(int i = 0; i < SIZE_ARRAY; i++){
+    //     printf("%d", (buffer[i]% SIZE_ARRAY));
+    // } 
 
-if (argc < 2) {
-    fprintf(stderr, "Usage: %s <number>\n", argv[0]);
-    return 1;
-}
-    int a = atoi(argv[1]);
-    printf("%d", a);
     return 0;
 }
